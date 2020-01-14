@@ -1,0 +1,31 @@
+{
+  "settings": {
+    "index.number_of_replicas": "1",
+    "index.number_of_shards": "5",
+    "index.refresh_interval": "10s",
+    "index.store.type": "fs"
+  },
+  "mappings": {
+    "test_type": {
+      "_all": {
+        "enabled": false
+      },
+      "_field_names": {
+        "enabled": false
+      },
+      "properties": {
+        "desc_smart": {
+          "type": "text",
+          "analyzer": "ik_smart"
+        },
+        "desc_max": {
+          "type": "text",
+          "analyzer": "ik_max_word"
+        }
+      }
+    }
+  },
+  "aliases": {
+    "test_index_alias": {}
+  }
+}

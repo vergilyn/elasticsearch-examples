@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: high-rest-client-elasticsearch
+
+vergilyn:
+  elastic:
+    client:
+      cluster-name: vergilyn-search-application
+      cluster-hosts:
+        - 127.0.0.1:9200
+      max-retry-timeout: 30000
+
+    http:
+      max-conn-total: 50
+      max-conn-per-route: 10
+
+    request:
+      connect-timeout: 1000
+      socket-timeout: 30000
+      connection-request-timeout: 500

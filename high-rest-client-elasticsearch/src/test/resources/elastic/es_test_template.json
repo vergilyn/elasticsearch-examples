@@ -1,0 +1,122 @@
+{
+	"index_patterns": "app_id_*",
+	"order": 1,
+	"settings": {
+		"index.number_of_replicas": "1",
+		"index.number_of_shards": "5",
+		"index.refresh_interval": "10s",
+		"index.store.type": "fs",
+		"analysis": {
+			"analyzer": {
+				"ik_max_word_synonym": {
+					"type": "custom",
+					"tokenizer": "ik_max_word",
+					"filter": [
+						"my_synonym_filter"
+					]
+				},
+				"ik_smart_synonym": {
+					"type": "custom",
+					"tokenizer": "ik_smart",
+					"filter": [
+						"my_synonym_filter"
+					]
+				},
+				"ik_smart_html": {
+					"type": "custom",
+					"tokenizer": "ik_smart",
+					"filter": [
+						"my_synonym_filter"
+					],
+					"char_filter": [
+						"html_strip"
+					]
+				},
+				"ik_max_word_html": {
+					"type": "custom",
+					"tokenizer": "ik_max_word",
+					"filter": [
+						"my_synonym_filter"
+					],
+					"char_filter": [
+						"html_strip"
+					]
+				},
+				"comma_analyzer": {
+					"tokenizer": "comma_tokenizer"
+				}
+			},
+			"tokenizer": {
+				"comma_tokenizer": {
+					"type": "pattern",
+					"pattern": ","
+				}
+			},
+			"filter": {
+				"my_synonym_filter": {
+					"type": "synonym",
+					"synonyms_path": "my_ext_synonym.dic"
+				}
+			}
+		}
+	},
+	"mappings": {
+		"source_type_all": {
+			"_all": {
+				"enabled": false
+			},
+			"_field_names": {
+				"enabled": false
+			},
+			"properties": {
+				"create_time": {
+					"type": "date",
+					"format": "strict_date_optional_time||epoch_millis||yyyy-MM-dd HH:mm:ss"
+				},
+				"online_time": {
+					"type": "date",
+					"format": "strict_date_optional_time||epoch_millis||yyyy-MM-dd HH:mm:ss"
+				},
+				"update_time": {
+					"type": "date",
+					"format": "strict_date_optional_time||epoch_millis||yyyy-MM-dd HH:mm:ss"
+				},
+				"source_id": {
+					"type": "keyword"
+				},
+				"source_type": {
+					"type": "integer"
+				},
+				"content": {
+					"type": "text",
+					"analyzer": "ik_max_word_synonym",
+					"search_analyzer": "ik_max_word_synonym"
+				},
+				"synopsis": {
+					"type": "text",
+					"analyzer": "ik_max_word_synonym",
+					"search_analyzer": "ik_max_word_synonym"
+				},
+				"list_title": {
+					"type": "text",
+					"analyzer": "ik_smart_synonym",
+					"search_analyzer": "ik_max_word_synonym"
+				},
+				"info_title": {
+					"type": "text",
+					"analyzer": "ik_smart_synonym",
+					"search_analyzer": "ik_max_word_synonym"
+				},
+				"keywords": {
+					"type": "text",
+					"analyzer": "comma_analyzer",
+					"search_analyzer": "ik_smart"
+				}
+			}
+		}
+	},
+	"aliases": {
+		"{index}_alias": {}
+	},
+	"version": 1
+}

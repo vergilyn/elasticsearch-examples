@@ -1,0 +1,94 @@
+# 只是备份，实际通过kibana操作的elasticsearch
+# search_template 的 source
+{
+  "from": "{{from}}{{^from}}0{{/from}}",
+  "size": "{{size}}{{^size}}10{{/size}}",
+  "timeout": "{{timeout}}{{^timeout}}5m{{/timeout}}",
+  "version": true,
+  "_source": {
+    "excludes": ["content","synopsis"]
+  },
+  "sort": [
+    {"_score": {"order": "desc"}},
+    {"online_time": {"order": "desc"}}
+  ],
+  "query": {
+    "function_score": {
+	  "score_mode": "sum",
+	  "boost_mode": "avg",
+	  "boost": 1,
+	  "query": {
+	    "bool": {
+          "minimum_should_match": 0,
+          "boost": 1,
+		  "must": [{
+		    "multi_match": {
+			  "query": "{{query_string}}",
+			  "fields": {{#toJson}}multi_match_fields{{/toJson}},
+			  "type": "best_fields",
+			  "operator": "OR",
+			  "slop": 0,
+			  "prefix_length": 0,
+			  "max_expansions": 10,
+			  "tie_breaker": 0.4,
+			  "zero_terms_query": "NONE",
+			  "auto_generate_synonyms_phrase_query": true,
+			  "fuzzy_transpositions": true,
+			  "boost": 1
+			}
+		  }],
+		  "should": [
+		    {
+		      "prefix": {
+			    "list_title.keyword": {"value": "{{query_string}}", "boost": 2}
+			  }
+			},
+			{
+			  "match_phrase_prefix": {
+			    "list_title": {"query": "{{query_string}}", "boost": 1}
+			  }
+			}
+		  ],
+		  "filter": [
+		    {
+			  "range": {
+			    "online_time": {
+				  {{#range_online_time_get}}
+				    "gte": "{{range_online_time_get}}",
+				  {{/range_online_time_get}}
+
+				  {{#range_online_time_lte}}
+				    "lte": "{{range_online_time_lte}}",
+				  {{/range_online_time_lte}}
+
+				  "boost": 1
+				}
+			  }
+			}
+
+            {{#source_types}}
+              ,{"terms": {"source_type":  {{#toJson}}source_types{{/toJson}}, "boost": 1}}
+            {{/source_types}}
+
+            {{#columns_ids}}
+              ,{"terms": {"columns_id":  {{#toJson}}columns_ids{{/toJson}}, "boost": 1}}
+            {{/columns_ids}}
+
+            {{#list_view_type_lt}}
+              ,{"range": {"list_view_type": {"lt": "{{list_view_type_lt}}"}, "boost": 1}}
+            {{/list_view_type_lt}}
+
+            {{#status}}
+              ,{"terms": {"status": {{#toJson}}status{{/toJson}}, "boost": 1}}
+            {{/status}}
+		  ]
+		}
+      },
+      "functions": [
+        {
+		  "gauss": {"online_time": {"scale": "15d", "offset": "7d", "decay": 0.5}}
+	    }
+      ]
+	}
+  }
+}
