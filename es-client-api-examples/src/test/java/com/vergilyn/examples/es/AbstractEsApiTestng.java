@@ -1,7 +1,13 @@
 package com.vergilyn.examples.es;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
@@ -10,6 +16,10 @@ import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+
+import static com.alibaba.fastjson.serializer.SerializerFeature.MapSortField;
+import static com.alibaba.fastjson.serializer.SerializerFeature.PrettyFormat;
+import static com.alibaba.fastjson.serializer.SerializerFeature.SortField;
 
 /**
  * @author vergilyn
@@ -21,7 +31,7 @@ public abstract class AbstractEsApiTestng {
     protected RestClient restClient;
     protected RestHighLevelClient rhlClient;
     protected static final String ES_INDEX = "vergilyn-es-client-api-examples";
-    protected static final String ES_INDEX_ALIAS = "vergilyn-es-client-api-examples_alias";
+    protected static final String ES_INDEX_ALIAS = ES_INDEX + "_alias";
 
     @BeforeTest
     public void init(){
@@ -57,5 +67,44 @@ public abstract class AbstractEsApiTestng {
         } catch (IOException e) {
             log.error("destroy elasticsearch client failure", e);
         }
+    }
+
+    public void preventExit(){
+        try {
+            new CountDownLatch(1).await();
+        } catch (InterruptedException e) {
+            // do nothing
+        }
+    }
+
+    public void sleepSeconds(long timeout){
+        sleep(TimeUnit.SECONDS, timeout);
+    }
+
+    public void sleep(TimeUnit unit, long timeout){
+        try {
+            unit.sleep(timeout);
+        } catch (InterruptedException e) {
+            // do nothing
+        }
+    }
+
+    public String prettyFormatJson(Object object){
+        boolean isCollection = false;
+        if (object instanceof Collection){
+            isCollection = true;
+        }
+
+        return prettyFormatJson(object.toString(), isCollection);
+    }
+
+    public String prettyFormatJson(String json, boolean isCollection){
+        SerializerFeature[] serializerFeature = {PrettyFormat, SortField, MapSortField};
+
+        if (isCollection){
+            return JSON.toJSONString(JSON.parseArray(json), serializerFeature);
+        }
+
+        return JSON.toJSONString(JSON.parseObject(json), serializerFeature);
     }
 }
