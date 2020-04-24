@@ -7,6 +7,7 @@ import java.util.Map;
 
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.ActionListener;
+import org.elasticsearch.action.admin.indices.alias.Alias;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
@@ -31,7 +32,8 @@ public class IndexApiTestng extends AbstractEsApiTestng{
         _SOURCE = "{\"properties\": {"
                     + "\"username\": {\"type\": \"keyword\"}, "
                     + "\"content\": {\"type\": \"text\"}, "
-                    + "\"update_time\": {\"type\": \"date\", \"format\":\"yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||strict_date_optional_time||epoch_millis\"}}}";
+                    + "\"update_time\": {\"type\": \"date\", \"format\":\"yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||strict_date_optional_time||epoch_millis\"}"
+                + "}}";
     }
 
     /**
@@ -42,6 +44,8 @@ public class IndexApiTestng extends AbstractEsApiTestng{
     public void createIndex(){
         CreateIndexRequest request = new CreateIndexRequest(ES_INDEX);
         request.mapping(_SOURCE, XContentType.JSON);
+        request.alias(new Alias(ES_INDEX_ALIAS));
+
         try {
             boolean exists = rhlClient.indices().exists(new GetIndexRequest(ES_INDEX), RequestOptions.DEFAULT);
 
