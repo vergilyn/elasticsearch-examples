@@ -1,4 +1,4 @@
-package com.vergilyn.examples.api;
+package com.vergilyn.examples.es;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
 @RunWith(BlockJUnit4ClassRunner.class)
-public class BasicAuthenticationTest {
+public class BasicAuthenticationTestng {
 
     @Test
     public void basicAuthenticationTest() {
@@ -34,7 +34,7 @@ public class BasicAuthenticationTest {
         )) {
             // Do something.
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 }

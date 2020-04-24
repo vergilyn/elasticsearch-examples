@@ -1,9 +1,6 @@
 # Java High Level REST Client
-　　see: [elasticsearch guid: java-rest-high, 6.4][EN, java-rest-high: 6.4]  
 
 [EN, java-rest-high: 6.4]: https://www.elastic.co/guide/en/elasticsearch/client/java-rest/6.4/java-rest-high.html
-　　code example:  
-　　　　[hainet, elasticsearch-rest-high-level-client-sample](https://github.com/hainet/elasticsearch-rest-high-level-client-sample)
 
 测试代码想达到的目的：
   `_index = app_xx`，例如 app_csdn、app_cnblog。xx 表示文章的来源网站。

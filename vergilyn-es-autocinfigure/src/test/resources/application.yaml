@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: vergilyn-es-autoconfigure
+
+vergilyn:
+  es:
+    uris:
+      - 127.0.0.1:9200

@@ -1,9 +1,14 @@
-package com.vergilyn.examples.config;
+package com.vergilyn.examples.autoconfigure;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.common.collect.Lists;
+
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -11,25 +16,63 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * @author VergiLyn
  * @date 2019-06-05
+ * @see org.springframework.boot.autoconfigure.elasticsearch.rest.RestClientProperties
  */
-@ConfigurationProperties(prefix = "vergilyn.elastic")
-public class ElasticsearchClientProperties {
+@ConfigurationProperties(prefix = "vergilyn.es")
+public class RestClientProperties {
     private final ClientConfig client = new ClientConfig();
-
     private final HttpClientConfigCallback http = new HttpClientConfigCallback();
-
     private final RequestConfigCallback request = new RequestConfigCallback();
 
-    public ClientConfig getClient() {
+    /**
+     * Comma-separated list of the Elasticsearch instances to use.
+     */
+    private List<String> uris = Lists.newArrayList();
+
+    /**
+     * Credentials username.
+     */
+    private String username;
+
+    /**
+     * Credentials password.
+     */
+    private String password;
+
+    public ClientConfig getClientConfig() {
         return client;
     }
 
-    public HttpClientConfigCallback getHttp() {
+    public HttpClientConfigCallback getHttpClientConfig() {
         return http;
     }
 
-    public RequestConfigCallback getRequest() {
+    public RequestConfigCallback getRequestConfig() {
         return request;
+    }
+
+    public List<String> getUris() {
+        return uris;
+    }
+
+    public void setUris(List<String> uris) {
+        this.uris = uris;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public static class ClientConfig{
@@ -74,61 +117,19 @@ public class ElasticsearchClientProperties {
         }
     }
 
+    @Setter
+    @Getter
     public static class RequestConfigCallback{
-        private boolean staleConnectionCheckEnabled = false;
-        private boolean redirectsEnabled = true;
+        private Duration connectionRequestTimeout = Duration.ofSeconds(1);
+        private Duration connectTimeout = Duration.ofSeconds(1);
+        private Duration socketTimeout = Duration.ofSeconds(30);
         private int maxRedirects = 50;
-        private boolean relativeRedirectsAllowed = true;
-        private boolean authenticationEnabled = true;
-        private int connectionRequestTimeout = -1;
-        private int connectTimeout = -1;
-        private int socketTimeout = -1;
-        private boolean contentCompressionEnabled = true;
-
-        public int getConnectTimeout() {
-            return connectTimeout;
-        }
-
-        public void setConnectTimeout(int connectTimeout) {
-            this.connectTimeout = connectTimeout;
-        }
-
-        public int getSocketTimeout() {
-            return socketTimeout;
-        }
-
-        public void setSocketTimeout(int socketTimeout) {
-            this.socketTimeout = socketTimeout;
-        }
-
-        public int getConnectionRequestTimeout() {
-            return connectionRequestTimeout;
-        }
-
-        public void setConnectionRequestTimeout(int connectionRequestTimeout) {
-            this.connectionRequestTimeout = connectionRequestTimeout;
-        }
     }
 
+    @Setter
+    @Getter
     public static class HttpClientConfigCallback{
         private int maxConnTotal = 30;
-
         private int maxConnPerRoute = 10;
-
-        public int getMaxConnTotal() {
-            return maxConnTotal;
-        }
-
-        public void setMaxConnTotal(int maxConnTotal) {
-            this.maxConnTotal = maxConnTotal;
-        }
-
-        public int getMaxConnPerRoute() {
-            return maxConnPerRoute;
-        }
-
-        public void setMaxConnPerRoute(int maxConnPerRoute) {
-            this.maxConnPerRoute = maxConnPerRoute;
-        }
     }
 }

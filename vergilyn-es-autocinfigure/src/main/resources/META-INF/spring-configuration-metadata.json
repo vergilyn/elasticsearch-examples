@@ -1,0 +1,101 @@
+{
+  "groups": [
+    {
+      "name": "vergilyn.es",
+      "type": "com.vergilyn.examples.autoconfigure.RestClientProperties",
+      "sourceType": "com.vergilyn.examples.autoconfigure.RestClientProperties"
+    },
+    {
+      "name": "vergilyn.es.client-config",
+      "type": "com.vergilyn.examples.autoconfigure.RestClientProperties$ClientConfig",
+      "sourceType": "com.vergilyn.examples.autoconfigure.RestClientProperties",
+      "sourceMethod": "getClientConfig()"
+    },
+    {
+      "name": "vergilyn.es.http-client-config",
+      "type": "com.vergilyn.examples.autoconfigure.RestClientProperties$HttpClientConfigCallback",
+      "sourceType": "com.vergilyn.examples.autoconfigure.RestClientProperties",
+      "sourceMethod": "getHttpClientConfig()"
+    },
+    {
+      "name": "vergilyn.es.request-config",
+      "type": "com.vergilyn.examples.autoconfigure.RestClientProperties$RequestConfigCallback",
+      "sourceType": "com.vergilyn.examples.autoconfigure.RestClientProperties",
+      "sourceMethod": "getRequestConfig()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "vergilyn.es.client-config.cluster-hosts",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.vergilyn.examples.autoconfigure.RestClientProperties$ClientConfig"
+    },
+    {
+      "name": "vergilyn.es.client-config.cluster-name",
+      "type": "java.lang.String",
+      "sourceType": "com.vergilyn.examples.autoconfigure.RestClientProperties$ClientConfig",
+      "defaultValue": "elasticsearch"
+    },
+    {
+      "name": "vergilyn.es.client-config.max-retry-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "com.vergilyn.examples.autoconfigure.RestClientProperties$ClientConfig",
+      "defaultValue": 30000
+    },
+    {
+      "name": "vergilyn.es.http-client-config.max-conn-per-route",
+      "type": "java.lang.Integer",
+      "sourceType": "com.vergilyn.examples.autoconfigure.RestClientProperties$HttpClientConfigCallback",
+      "defaultValue": 10
+    },
+    {
+      "name": "vergilyn.es.http-client-config.max-conn-total",
+      "type": "java.lang.Integer",
+      "sourceType": "com.vergilyn.examples.autoconfigure.RestClientProperties$HttpClientConfigCallback",
+      "defaultValue": 30
+    },
+    {
+      "name": "vergilyn.es.password",
+      "type": "java.lang.String",
+      "description": "Credentials password.",
+      "sourceType": "com.vergilyn.examples.autoconfigure.RestClientProperties"
+    },
+    {
+      "name": "vergilyn.es.request-config.connect-timeout",
+      "type": "java.time.Duration",
+      "sourceType": "com.vergilyn.examples.autoconfigure.RestClientProperties$RequestConfigCallback",
+      "defaultValue": "1s"
+    },
+    {
+      "name": "vergilyn.es.request-config.connection-request-timeout",
+      "type": "java.time.Duration",
+      "sourceType": "com.vergilyn.examples.autoconfigure.RestClientProperties$RequestConfigCallback",
+      "defaultValue": "1s"
+    },
+    {
+      "name": "vergilyn.es.request-config.max-redirects",
+      "type": "java.lang.Integer",
+      "sourceType": "com.vergilyn.examples.autoconfigure.RestClientProperties$RequestConfigCallback",
+      "defaultValue": 50
+    },
+    {
+      "name": "vergilyn.es.request-config.socket-timeout",
+      "type": "java.time.Duration",
+      "sourceType": "com.vergilyn.examples.autoconfigure.RestClientProperties$RequestConfigCallback",
+      "defaultValue": "30s"
+    },
+    {
+      "name": "vergilyn.es.uris",
+      "type": "java.util.List<java.lang.String>",
+      "description": "Comma-separated list of the Elasticsearch instances to use.",
+      "sourceType": "com.vergilyn.examples.autoconfigure.RestClientProperties"
+    },
+    {
+      "name": "vergilyn.es.username",
+      "type": "java.lang.String",
+      "description": "Credentials username.",
+      "sourceType": "com.vergilyn.examples.autoconfigure.RestClientProperties"
+    }
+  ],
+  "hints": []
+}
