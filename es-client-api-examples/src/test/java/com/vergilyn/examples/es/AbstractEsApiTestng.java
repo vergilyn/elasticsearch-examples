@@ -27,11 +27,12 @@ import static com.alibaba.fastjson.serializer.SerializerFeature.SortField;
  */
 @Slf4j
 public abstract class AbstractEsApiTestng {
-    private AtomicBoolean IS_INIT = new AtomicBoolean(false);
+    private final AtomicBoolean IS_INIT = new AtomicBoolean(false);
     protected RestClient restClient;
     protected RestHighLevelClient rhlClient;
     protected static final String ES_INDEX = "vergilyn-es-client-api-examples";
     protected static final String ES_INDEX_ALIAS = ES_INDEX + "_alias";
+    protected static final String ID = "409839163";
 
     @BeforeTest
     public void init(){
