@@ -22,6 +22,7 @@
 
         <spring-boot-dependencies.version>2.2.2.RELEASE</spring-boot-dependencies.version>
         <elasticsearch.version>7.6.2</elasticsearch.version>
+        <jcl-over-slf4j.version>1.7.30</jcl-over-slf4j.version>
 
         <projectlombok.version>1.18.10</projectlombok.version>
         <google-guava.version>28.2-jre</google-guava.version>
@@ -56,12 +57,24 @@
                 <groupId>org.elasticsearch.client</groupId>
                 <artifactId>elasticsearch-rest-client</artifactId>
                 <version>${elasticsearch.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
                 <groupId>org.elasticsearch.client</groupId>
                 <artifactId>elasticsearch-rest-high-level-client</artifactId>
                 <version>${elasticsearch.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${jcl-over-slf4j.version}</version>
             </dependency>
 
             <dependency>

@@ -23,16 +23,6 @@ import org.testng.annotations.Test;
 @Slf4j
 public class CreateIndexTestng extends AbstractEsApiTestng {
 
-    private static final String _SOURCE;
-
-    static {
-        _SOURCE = "{\"properties\": {"
-                    + "\"username\": {\"type\": \"keyword\"}, "
-                    + "\"content\": {\"type\": \"text\"}, "
-                    + "\"update_time\": {\"type\": \"date\", \"format\":\"yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||strict_date_optional_time||epoch_millis\"}"
-                + "}}";
-    }
-
     @Test
     public void createIndexSync(){
         CreateIndexRequest request = new CreateIndexRequest(ES_INDEX);

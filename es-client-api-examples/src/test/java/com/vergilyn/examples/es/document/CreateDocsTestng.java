@@ -27,9 +27,9 @@ public class CreateDocsTestng extends AbstractEsApiTestng {
     @Test
     public void createDocsSync() {
         Map<String, Object> map = new HashMap<>();
-        map.put("user", "vergilyn");
-        map.put("content", "vergilyn elasticsearch client API example.(SYNC)");
-        map.put("update_time", LocalDateTime.now().toString());
+        map.put(FIELD_USERNAME, "vergilyn");
+        map.put(FIELD_CONTENT, "vergilyn elasticsearch client API example.(SYNC)");
+        map.put(FIELD_UPDATE_TIME, LocalDateTime.now().toString());
 
         IndexRequest request = new IndexRequest()
                 .index(ES_INDEX)
@@ -38,7 +38,6 @@ public class CreateDocsTestng extends AbstractEsApiTestng {
 
         try {
             IndexResponse response = rhlClient.index(request, RequestOptions.DEFAULT);
-
             log.info("invoke index-api-sync >>>> SUCCESS, response: {}", response);
         } catch (IOException e) {
             log.error("invoke index-api-sync >>>> FAILURE, cause: {}", e.getMessage(), e);
@@ -48,9 +47,9 @@ public class CreateDocsTestng extends AbstractEsApiTestng {
     @Test
     public void createDocsAsync() {
         final Map<String, Object> map = new HashMap<>();
-        map.put("user", "vergilyn");
-        map.put("content", "vergilyn elasticsearch client API example.(ASYNC)");
-        map.put("update_time", LocalDateTime.now().toString());
+        map.put(FIELD_USERNAME, "vergilyn");
+        map.put(FIELD_CONTENT, "vergilyn elasticsearch client API example.(ASYNC)");
+        map.put(FIELD_UPDATE_TIME, LocalDateTime.now().toString());
 
         IndexRequest request = new IndexRequest()
                 .index(ES_INDEX)

@@ -1,25 +1,23 @@
 package com.vergilyn.examples.es;
 
 import java.io.IOException;
-import java.util.Collection;
+import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.Strings;
+import org.elasticsearch.common.xcontent.ToXContentObject;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-
-import static com.alibaba.fastjson.serializer.SerializerFeature.MapSortField;
-import static com.alibaba.fastjson.serializer.SerializerFeature.PrettyFormat;
-import static com.alibaba.fastjson.serializer.SerializerFeature.SortField;
+import org.testng.collections.Maps;
 
 /**
  * @author vergilyn
@@ -31,8 +29,22 @@ public abstract class AbstractEsApiTestng {
     protected RestClient restClient;
     protected RestHighLevelClient rhlClient;
     protected static final String ES_INDEX = "vergilyn-es-client-api-examples";
+    protected static final String ES_INDEX_TEMPLATE = ES_INDEX + "_template";
     protected static final String ES_INDEX_ALIAS = ES_INDEX + "_alias";
     protected static final String ID = "409839163";
+
+    protected static final String _SOURCE;
+    protected static final String FIELD_USERNAME = "username";
+    protected static final String FIELD_CONTENT = "content";
+    protected static final String FIELD_UPDATE_TIME = "update_time";
+
+    static {
+        _SOURCE = "{\"properties\": {"
+                + "\"" + FIELD_USERNAME + "\": {\"type\": \"keyword\"}, "
+                + "\"" + FIELD_CONTENT + "\": {\"type\": \"text\"}, "
+                + "\"" + FIELD_UPDATE_TIME + "\": {\"type\": \"date\", \"format\":\"yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||strict_date_optional_time||epoch_millis\"}"
+                + "}}";
+    }
 
     @BeforeTest
     public void init(){
@@ -90,22 +102,25 @@ public abstract class AbstractEsApiTestng {
         }
     }
 
-    public String prettyFormatJson(Object object){
-        boolean isCollection = false;
-        if (object instanceof Collection){
-            isCollection = true;
-        }
-
-        return prettyFormatJson(object.toString(), isCollection);
+    public String prettyPrintJson(ToXContentObject response){
+        return Strings.toString(response, true, true);
     }
 
-    public String prettyFormatJson(String json, boolean isCollection){
-        SerializerFeature[] serializerFeature = {PrettyFormat, SortField, MapSortField};
+    public Map<String, Object> buildData(String username, String content, LocalDateTime dateTime){
+        Map<String, Object> data = Maps.newHashMap();
 
-        if (isCollection){
-            return JSON.toJSONString(JSON.parseArray(json), serializerFeature);
+        if (StringUtils.isNotBlank(username)){
+            data.put(FIELD_USERNAME, username);
         }
 
-        return JSON.toJSONString(JSON.parseObject(json), serializerFeature);
+        if (StringUtils.isNotBlank(content)){
+            data.put(FIELD_CONTENT, content);
+        }
+
+        if (dateTime != null){
+            data.put(FIELD_UPDATE_TIME, dateTime.toString());
+        }
+
+        return data;
     }
 }

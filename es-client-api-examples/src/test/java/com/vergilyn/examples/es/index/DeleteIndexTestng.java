@@ -20,6 +20,11 @@ import org.testng.annotations.Test;
 @Slf4j
 public class DeleteIndexTestng extends AbstractEsApiTestng {
 
+    /**
+     * <pre>
+     *   curl -XDELETE "http://127.0.0.1:9200/{index_name}"
+     * </pre>
+     */
     @Test
     public void deleteIndexSync(){
         try {
