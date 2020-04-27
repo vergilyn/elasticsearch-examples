@@ -39,7 +39,7 @@ public class DeleteDocsTestng extends AbstractEsApiTestng {
      */
     @Test
     public void deleteByIdSync(){
-        DeleteRequest deleteRequest = new DeleteRequest(ES_INDEX, ID);
+        DeleteRequest deleteRequest = new DeleteRequest(ES_INDEX, V_ID);
         // deleteRequest.version();
         deleteRequest.timeout(TimeValue.timeValueSeconds(2));
         try {

@@ -33,7 +33,7 @@ public class CreateDocsTestng extends AbstractEsApiTestng {
 
         IndexRequest request = new IndexRequest()
                 .index(ES_INDEX)
-                .id(ID)
+                .id(V_ID)
                 .source(map);
 
         try {
@@ -53,7 +53,7 @@ public class CreateDocsTestng extends AbstractEsApiTestng {
 
         IndexRequest request = new IndexRequest()
                 .index(ES_INDEX)
-                .id(ID)
+                .id(V_ID)
                 .source(map);
 
         rhlClient.indexAsync(request, RequestOptions.DEFAULT, new ActionListener<IndexResponse>() {

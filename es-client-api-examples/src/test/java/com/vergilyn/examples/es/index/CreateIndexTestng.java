@@ -5,7 +5,6 @@ import java.io.IOException;
 import com.vergilyn.examples.es.AbstractEsApiTestng;
 
 import lombok.extern.slf4j.Slf4j;
-import org.elasticsearch.action.admin.indices.alias.Alias;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
@@ -28,7 +27,7 @@ public class CreateIndexTestng extends AbstractEsApiTestng {
         CreateIndexRequest request = new CreateIndexRequest(ES_INDEX);
         // request.settings(Source, XContentType);
         request.mapping(_SOURCE, XContentType.JSON);
-        request.alias(new Alias(ES_INDEX_ALIAS));
+        // request.alias(new Alias(ES_INDEX_ALIAS));
 
         try {
             CreateIndexResponse createIndexResponse = rhlClient.indices().create(request, RequestOptions.DEFAULT);

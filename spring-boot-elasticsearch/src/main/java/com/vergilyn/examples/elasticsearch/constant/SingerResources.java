@@ -6,7 +6,6 @@ import java.util.List;
 import com.alibaba.fastjson.JSON;
 import com.vergilyn.examples.elasticsearch.document.SingerDoc;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;

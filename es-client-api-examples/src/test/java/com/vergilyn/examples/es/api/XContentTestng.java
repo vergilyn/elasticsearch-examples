@@ -30,7 +30,7 @@ public class XContentTestng extends AbstractEsApiTestng {
 
     @BeforeTest
     protected void beforeTest() throws IOException {
-        response = rhlClient.get(new GetRequest(ES_INDEX, ID), RequestOptions.DEFAULT);
+        response = rhlClient.get(new GetRequest(ES_INDEX, V_ID), RequestOptions.DEFAULT);
     }
 
     /**

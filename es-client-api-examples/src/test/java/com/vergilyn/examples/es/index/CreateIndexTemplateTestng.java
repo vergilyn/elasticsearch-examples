@@ -43,6 +43,6 @@ public class CreateIndexTemplateTestng extends AbstractEsApiTestng {
      */
     @Test
     public void sync(){
-
+        // TODO 2020-04-27
     }
 }

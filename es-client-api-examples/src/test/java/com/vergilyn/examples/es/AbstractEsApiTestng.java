@@ -22,6 +22,9 @@ import org.testng.collections.Maps;
 /**
  * @author vergilyn
  * @date 2020-04-24
+ *
+ * @see <a href="https://www.elastic.co/guide/en/elasticsearch/client/java-rest/7.6/java-rest-low-usage-initialization.html">java-rest-low-usage-initialization.html</a>
+ * @see <a href="https://www.elastic.co/guide/en/elasticsearch/client/java-rest/7.6/java-rest-high-getting-started-initialization.html">java-rest-high-getting-started-initialization.html</a>
  */
 @Slf4j
 public abstract class AbstractEsApiTestng {
@@ -31,7 +34,10 @@ public abstract class AbstractEsApiTestng {
     protected static final String ES_INDEX = "vergilyn-es-client-api-examples";
     protected static final String ES_INDEX_TEMPLATE = ES_INDEX + "_template";
     protected static final String ES_INDEX_ALIAS = ES_INDEX + "_alias";
-    protected static final String ID = "409839163";
+    protected static final String ES_SEARCH_TEMPLATE = ES_INDEX + "_search_template";
+
+    protected static final String V_ID = "409839163";
+    protected static final String V_USERNAME = "vergilyn";
 
     protected static final String _SOURCE;
     protected static final String FIELD_USERNAME = "username";

@@ -17,6 +17,6 @@ public class DeleteIndexTemplateTestng extends AbstractEsApiTestng {
      */
     @Test
     public void delete(){
-
+        // TODO 2020-04-27
     }
 }

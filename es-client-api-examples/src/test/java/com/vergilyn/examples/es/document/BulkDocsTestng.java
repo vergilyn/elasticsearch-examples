@@ -49,7 +49,7 @@ public class BulkDocsTestng extends AbstractEsApiTestng {
                         , FIELD_CONTENT, "create by bulk-api."
                         , FIELD_UPDATE_TIME, LocalDateTime.now().toString())
         );
-        request.add(new DeleteRequest(ES_INDEX, ID));
+        request.add(new DeleteRequest(ES_INDEX, V_ID));
 
         final BulkResponse bulkResponse;
         try {

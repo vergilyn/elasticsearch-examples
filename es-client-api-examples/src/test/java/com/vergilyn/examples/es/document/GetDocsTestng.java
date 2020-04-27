@@ -51,7 +51,7 @@ public class GetDocsTestng extends AbstractEsApiTestng {
      */
     @Test
     public void getByIdSync(){
-        GetRequest request = new GetRequest(ES_INDEX, ID);
+        GetRequest request = new GetRequest(ES_INDEX, V_ID);
         try {
             GetResponse response = rhlClient.get(request, RequestOptions.DEFAULT);
             // String source = response.getSourceAsString();
