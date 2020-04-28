@@ -1,0 +1,107 @@
+{
+  "settings": {
+    "index.number_of_replicas": "1",
+    "index.number_of_shards": "3",
+    "index.refresh_interval": "10s",
+    "index.store.type": "fs",
+    "analysis": {
+      "analyzer": {
+        "ik_max_word_synonym": {
+          "type": "custom",
+          "tokenizer": "ik_max_word",
+          "filter": [
+            "my_synonym_filter"
+          ]
+        },
+        "ik_smart_synonym": {
+          "type": "custom",
+          "tokenizer": "ik_smart",
+          "filter": [
+            "my_synonym_filter"
+          ]
+        },
+        "ik_smart_html": {
+          "type": "custom",
+          "tokenizer": "ik_smart",
+          "filter": [
+            "my_synonym_filter"
+          ],
+          "char_filter": [
+            "html_strip"
+          ]
+        },
+        "ik_max_word_html": {
+          "type": "custom",
+          "tokenizer": "ik_max_word",
+          "filter": [
+            "my_synonym_filter"
+          ],
+          "char_filter": [
+            "html_strip"
+          ]
+        },
+        "comma_analyzer": {
+          "tokenizer": "comma_tokenizer"
+        }
+      },
+      "tokenizer": {
+        "comma_tokenizer": {
+          "type": "pattern",
+          "pattern": ","
+        }
+      },
+      "filter": {
+        "my_synonym_filter": {
+          "type": "synonym",
+          "synonyms_path": "./dic-synonym/my_extra_synonym.dic"
+        }
+      }
+    }
+  },
+  "mappings": {
+     "dynamic": "strict",
+     "_source": {
+       "enabled": true
+     },
+     "_field_names": {
+       "enabled": false
+     },
+     "properties": {
+       "id": {
+         "type": "keyword"
+       },
+       "title": {
+         "type": "text",
+         "analyzer": "ik_max_word",
+         "search_analyzer": "ik_smart_synonym"
+       },
+       "list_title": {
+         "type": "text",
+         "analyzer": "ik_max_word",
+         "search_analyzer": "ik_smart_synonym"
+       },
+       "view_num": {
+         "type": "integer"
+       },
+       "publish_time": {
+         "type": "date",
+         "format": "yyyy-MM-dd HH:mm:ss"
+       },
+       "tags": {
+         "type": "text",
+         "analyzer": "comma_analyzer",
+         "search_analyzer": "ik_smart"
+       },
+       "summary": {
+         "type": "text",
+         "analyzer": "ik_smart",
+         "search_analyzer": "ik_smart"
+       },
+       "content": {
+         "type": "text",
+         "analyzer": "ik_smart_html",
+         "search_analyzer": "ik_smart_html"
+       }
+     }
+  }
+}

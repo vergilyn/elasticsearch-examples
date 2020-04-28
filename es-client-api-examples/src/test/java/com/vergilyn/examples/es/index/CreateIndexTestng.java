@@ -36,5 +36,4 @@ public class CreateIndexTestng extends AbstractEsApiTestng {
             log.error("create index[{}] >>>> FAILURE, cause: {}", ES_INDEX, e.getMessage(), e);
         }
     }
-
 }
