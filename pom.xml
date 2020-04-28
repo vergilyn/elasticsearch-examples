@@ -11,7 +11,7 @@
     <modules>
         <module>high-rest-client-elasticsearch</module>
         <module>spring-boot-elasticsearch</module>
-        <module>vergilyn-es-autocinfigure</module>
+        <module>vergilyn-es-autoconfigure</module>
         <module>es-client-api-examples</module>
     </modules>
 

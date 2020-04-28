@@ -2,7 +2,7 @@
 <configuration scan="true" scanPeriod="10 seconds"
                xmlns="http://ch.qos.logback/xml/ns/logback"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback https://raw.githubusercontent.com/enricopulatzo/logback-XSD/master/src/main/xsd/logback.xsd">
+               xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback https://raw.githubuslogback.xmllogback.xmlercontent.com/enricopulatzo/logback-XSD/master/src/main/xsd/logback.xsd">
 
     <contextName>logback</contextName>
 
