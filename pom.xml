@@ -31,6 +31,7 @@
         <alibaba-fastjson.version>1.2.68</alibaba-fastjson.version>
         <apache-common-lang3.version>3.9</apache-common-lang3.version>
 
+        <apache-common-text.version>1.8</apache-common-text.version>
         <apache-common-io.version>2.6</apache-common-io.version>
         <apache-common-pool2.version>2.6.1</apache-common-pool2.version>
 
@@ -82,6 +83,12 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${apache-common-io.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>${apache-common-text.version}</version>
             </dependency>
 
             <dependency>

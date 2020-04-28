@@ -29,7 +29,7 @@ public abstract class AbstractEsClientTestng {
     protected RestHighLevelClient rhlClient;
 
     @BeforeTest
-    public void init(){
+    public void beforeTest(){
         if (!IS_INIT.compareAndSet(false, true)){
             return;
         }

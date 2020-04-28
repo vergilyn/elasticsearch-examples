@@ -70,15 +70,28 @@
        "id": {
          "type": "keyword"
        },
+       "status": {
+         "type": "byte"
+       },
        "title": {
          "type": "text",
          "analyzer": "ik_max_word",
-         "search_analyzer": "ik_smart_synonym"
+         "search_analyzer": "ik_smart_synonym",
+         "fields": {
+           "keyword": {
+             "type": "keyword"
+           }
+         }
        },
        "list_title": {
          "type": "text",
          "analyzer": "ik_max_word",
-         "search_analyzer": "ik_smart_synonym"
+         "search_analyzer": "ik_smart_synonym",
+         "fields": {
+           "keyword": {
+             "type": "keyword"
+           }
+         }
        },
        "view_num": {
          "type": "integer"
