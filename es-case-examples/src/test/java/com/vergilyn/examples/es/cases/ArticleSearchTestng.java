@@ -42,9 +42,7 @@ import org.testng.collections.Maps;
 public class ArticleSearchTestng extends AbstractEsClientTestng {
     private static final String ES_INDEX_SOURCE_RESOURCE_PATH = "vergilyn-article_index_source.json";
     private static final String ES_INDEX_DOCS_RESOURCE_PATH = "vergilyn-article_index_docs.json";
-    /**
-     * FIXME 2020-04-28 动态拼接的条件 ","判断存在问题
-     */
+    /** FIXME 2020-04-28 search-template动态拼接条件中的","判断存在问题 */
     private static final String ES_SEARCH_TEMPLATE_SOURCE_RESOURCE_PATH = "vergilyn-article_search_template_script.json";
     private static final String ES_INDEX = "vergilyn-article";
     private static final String ES_INDEX_ALIAS = ES_INDEX + "_alias";

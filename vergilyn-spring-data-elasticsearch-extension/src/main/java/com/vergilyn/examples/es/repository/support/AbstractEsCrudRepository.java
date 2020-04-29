@@ -79,6 +79,7 @@ public abstract class AbstractEsCrudRepository<T extends AbstractDocument, ID ex
             entity.setMetaIndex(resp.getIndex());
             entity.setMetaType(resp.getType());
             entity.setMetaVersion(resp.getVersion());
+            resp.get
 
             return entity;
         } catch (Exception e) {

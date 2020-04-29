@@ -9,7 +9,7 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <modules>
-        <module>high-rest-client-elasticsearch</module>
+        <module>vergilyn-spring-data-elasticsearch-extension</module>
         <module>spring-boot-elasticsearch</module>
         <module>vergilyn-es-autoconfigure</module>
         <module>es-client-api-examples</module>

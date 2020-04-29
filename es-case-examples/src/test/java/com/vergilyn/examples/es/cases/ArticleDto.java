@@ -15,7 +15,7 @@ import lombok.ToString;
 @ToString
 public class ArticleDto {
     public static final byte STATUS_DELETE = Byte.MIN_VALUE;
-    public static final byte STATUS_DRIFT = 0;
+    public static final byte STATUS_DRAFT = 0;
     public static final byte STATUS_PUBLISH = Byte.MAX_VALUE;
 
     private Long id;
