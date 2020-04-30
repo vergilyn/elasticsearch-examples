@@ -1,0 +1,18 @@
+vergilyn:
+  es:
+    uris:
+      - 127.0.0.1:9200
+    http-client-config:
+      max-conn-per-route: 10
+      max-conn-total: 30
+
+## https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/reference/htmlsingle/#boot-features-custom-log-levels
+## https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#elasticsearch.clients.logging
+logging:
+  group:
+    es:
+      - org.elasticsearch.client
+      - org.springframework.data.elasticsearch.client
+      - org.springframework.data.elasticsearch.client.WIRE
+  level:
+    es: trace

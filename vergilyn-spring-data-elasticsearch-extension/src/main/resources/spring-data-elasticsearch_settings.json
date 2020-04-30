@@ -1,0 +1,59 @@
+{
+  "index.number_of_replicas": "1",
+  "index.number_of_shards": "3",
+  "index.refresh_interval": "10s",
+  "index.store.type": "fs",
+  "analysis": {
+    "analyzer": {
+      "ik_max_word_synonym": {
+        "type": "custom",
+        "tokenizer": "ik_max_word",
+        "filter": [
+          "my_synonym_filter"
+        ]
+      },
+      "ik_smart_synonym": {
+        "type": "custom",
+        "tokenizer": "ik_smart",
+        "filter": [
+          "my_synonym_filter"
+        ]
+      },
+      "ik_smart_html": {
+        "type": "custom",
+        "tokenizer": "ik_smart",
+        "filter": [
+          "my_synonym_filter"
+        ],
+        "char_filter": [
+          "html_strip"
+        ]
+      },
+      "ik_max_word_html": {
+        "type": "custom",
+        "tokenizer": "ik_max_word",
+        "filter": [
+          "my_synonym_filter"
+        ],
+        "char_filter": [
+          "html_strip"
+        ]
+      },
+      "comma_analyzer": {
+        "tokenizer": "comma_tokenizer"
+      }
+    },
+    "tokenizer": {
+      "comma_tokenizer": {
+        "type": "pattern",
+        "pattern": ","
+      }
+    },
+    "filter": {
+      "my_synonym_filter": {
+        "type": "synonym",
+        "synonyms_path": "./dic-synonym/my_extra_synonym.dic"
+      }
+    }
+  }
+}

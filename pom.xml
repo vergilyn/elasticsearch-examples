@@ -13,7 +13,7 @@
         <module>spring-boot-elasticsearch</module>
         <module>vergilyn-es-autoconfigure</module>
         <module>es-client-api-examples</module>
-        <module>es-case-examples</module>
+        <module>es-usage-examples</module>
     </modules>
 
     <properties>
