@@ -65,4 +65,8 @@ remark:
 
 FEATURE:
 1. logger打印的request/response 并未格式化  
-see: `org.elasticsearch.client.RequestLogger#buildTraceResponse(...)`
+see: 
+- org.elasticsearch.client.RestClient#convertResponse(...)
+- org.elasticsearch.client.RequestLogger#logRespone(...)
+- org.elasticsearch.client.RequestLogger#buildTraceRequest(org.apache.http.client.methods.HttpUriRequest, org.apache.http.HttpHost)
+- org.elasticsearch.client.RequestLogger#buildTraceResponse(org.apache.http.HttpResponse)

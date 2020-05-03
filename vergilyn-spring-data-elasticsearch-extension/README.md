@@ -43,7 +43,27 @@ logging:
 
 **1.2 方案二**  
 还是期望通过 spring-boot 修改。
-TODO 2020-05-01 
+2020-05-02 >>>>
+```properties
+logging.level.tracer = trace
+``` 
+
+好蠢！！！
+通过`org.elasticsearch.client.RequestLogger` -> `LogFactory.getLog("tracer")`!  
+前后花了几个小时，其实很简单...回过头去，才明白elasticsearch官网说的什么...
+
++ [java-rest-low-usage-logging.html](https://www.elastic.co/guide/en/elasticsearch/client/java-rest/7.6/java-rest-low-usage-logging.html)
+ 
+The Java REST client uses the same logging library that the Apache Async Http Client uses: [Apache Commons Logging](https://commons.apache.org/proper/commons-logging/), 
+which comes with support for a number of popular logging implementations. 
+The java packages to enable logging for are `org.elasticsearch.client` for the client itself 
+and `org.elasticsearch.client.sniffer` for the sniffer.
+
+The request tracer logging can also be enabled to log every request and corresponding response in curl format. 
+That comes handy when debugging, for instance in case a request needs to be manually executed to check whether it still yields the same response as it did. 
+Enable trace logging for the **`tracer`** package to have such log lines printed out. 
+Do note that this type of logging is expensive and should not be enabled at all times in production environments, 
+but rather temporarily used only when needed.
 
 ### 2. annotation add index-alias?
 + [spring-data-elasticsearch, Define alias for document](https://jira.spring.io/browse/DATAES-192)
@@ -59,3 +79,7 @@ TODO 2020-05-01
 
 ### 3. dynamic index, ex "indexName-{yyyy-MM}"
 - [How to give Index Alias in Domain class instead of index name in Spring-dat-elasticsearch](https://stackoverflow.com/questions/51648942/how-to-give-index-alias-in-domain-class-instead-of-index-name-in-spring-dat-elas)
+
+### 4. spring-boot-2.x LocalDateTime
+- [springboot2 LocalDateTime类型未生效](https://blog.csdn.net/jieyanqulaopo123/article/details/105547050)
+- [如何使Spring Data Elasticsearch与java.time.LocalDat...](http://www.cocoachina.com/articles/40857)

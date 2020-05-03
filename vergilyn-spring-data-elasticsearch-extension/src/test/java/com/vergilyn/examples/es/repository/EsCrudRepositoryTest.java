@@ -1,4 +1,4 @@
-package com.vergilyn.examples.es;
+package com.vergilyn.examples.es.repository;
 
 import java.io.IOException;
 import java.util.List;

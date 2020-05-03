@@ -2,10 +2,17 @@ package com.vergilyn.examples.es.data.document;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+
 import lombok.Data;
 import org.elasticsearch.index.VersionType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -26,6 +33,7 @@ import org.springframework.data.elasticsearch.annotations.Setting;
 public class ArticleDocument {
     public static final String ES_INDEX = "spring-data-elasticsearch";
     public static final String ES_INDEX_ALIAS = ES_INDEX + "_alias";
+    public static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final byte STATUS_DELETE = Byte.MIN_VALUE;
     public static final byte STATUS_DRAFT = 0;
     public static final byte STATUS_PUBLISH = Byte.MAX_VALUE;
@@ -53,7 +61,11 @@ public class ArticleDocument {
     private int viewNum;
 
     /** 发布时间 */
-    @Field(name = "publish_time", type = FieldType.Date, pattern = "yyyy-MM-dd HH:mm:ss")
+    @Field(name = "publish_time", type = FieldType.Date,
+            format = DateFormat.custom, pattern = DATETIME_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATETIME_FORMAT)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime publishTime;
 
     /** 标签，英文逗号分隔 */
@@ -71,4 +83,17 @@ public class ArticleDocument {
             analyzer = "ik_smart_html", searchAnalyzer = "ik_smart_html")
     private String content;
 
+    public ArticleDocument init(Long id){
+        this.setId(id);
+        this.setStatus(ArticleDocument.STATUS_DRAFT);
+        this.setTitle("详情标题");
+        this.setListTitle("列表标题");
+        this.setViewNum(10);
+        this.setPublishTime(LocalDateTime.now());
+        this.setTags("java,elasticsearch");
+        this.setSummary("摘要");
+        this.setContent("<p>正文内容</p>");
+
+        return this;
+    }
 }
