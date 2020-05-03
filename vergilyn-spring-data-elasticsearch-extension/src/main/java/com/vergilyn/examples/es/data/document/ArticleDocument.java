@@ -11,7 +11,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Data;
 import org.elasticsearch.index.VersionType;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -24,7 +23,7 @@ import org.springframework.data.elasticsearch.annotations.Setting;
  * @author vergilyn
  * @date 2020-04-30
  */
-@TypeAlias(ArticleDocument.ES_INDEX_ALIAS)
+// @TypeAlias(ArticleDocument.ES_INDEX_ALIAS)  // FIXME 2020-05-03 index-alias?
 @Setting(settingPath = "spring-data-elasticsearch_settings.json")
 @Document(indexName = ArticleDocument.ES_INDEX,
         // shards = 3, replicas = 1, refreshInterval = "10s", indexStoreType = "fs",  // settings 配置
