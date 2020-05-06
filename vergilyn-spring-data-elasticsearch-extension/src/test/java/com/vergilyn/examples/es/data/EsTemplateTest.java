@@ -21,7 +21,7 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 @Slf4j
 public class EsTemplateTest {
     /**
-     * TODO 2020-05-03 autowired failure! (`RestTemplate` success!)
+     * FIXME 2020-05-03 autowired failure! (`RestTemplate` success!)
      */
     @Autowired
     private ElasticsearchTemplate template;

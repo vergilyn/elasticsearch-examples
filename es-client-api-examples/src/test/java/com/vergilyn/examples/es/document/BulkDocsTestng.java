@@ -100,4 +100,9 @@ public class BulkDocsTestng extends AbstractEsApiTestng {
             }
         });
     }
+
+    @Test
+    public void bulkFromTxt(){
+        // TODO {@link BulkRequest(StreamInput in)}
+    }
 }

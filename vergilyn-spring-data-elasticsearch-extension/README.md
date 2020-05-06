@@ -3,14 +3,9 @@
 + [github, spring-data-elasticsearch](https://github.com/spring-projects/spring-data-elasticsearch)
 + [spring-data-elasticsearch reference](https://spring.io/projects/spring-data-elasticsearch/)
 
-2020-04-29 >>>>  
-XXX: 
-1. `spring-data-elasticsearch` v3.2.7.RELEASE(current) 才知道支持 elasticsearch v6.8.8。
-（elasticsearch 已经 v7.6.2）
-
-TODO:  
-1. 根据`spring-boot-elasticsearch`扩展支持entity类似"index-name-{yyyyMMdd}"的操作(save/update/search)。
-
+**WARNING:**   
+`spring-data-elasticsearch` 使用的是 v3.2.3，其依赖 elasticsearch v6.8。  
+但elasticsearch强制使用 v7.6.2，会导致 spring-data-elasticsearch 部分API不可用！
 
 version: <https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#preface.versions>  
 
@@ -22,6 +17,11 @@ version: <https://docs.spring.io/spring-data/elasticsearch/docs/current/referenc
 | Ingalls | 2.1.x | 2.4.0 | 1.5.x |
 
 
+## TODO
+1. spring-data-elasticsearch 扩展 `EntityMapper`，所有的document包含metadata
+2. index alias
+3. `copy_to` or `field.keyword`
+
 
 ## FAQ
 
@@ -29,6 +29,12 @@ version: <https://docs.spring.io/spring-data/elasticsearch/docs/current/referenc
 - <https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/reference/htmlsingle/#boot-features-custom-log-levels>
 - <https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#elasticsearch.clients.logging>
 
+```yaml
+# application.yaml
+logging:
+  level:
+    tracer: trace
+```
 
 **1.1 方案一**  
 - [关于Spring-JCL日志的坑](https://www.jianshu.com/p/e254c4783a5d)
@@ -65,7 +71,7 @@ Enable trace logging for the **`tracer`** package to have such log lines printed
 Do note that this type of logging is expensive and should not be enabled at all times in production environments, 
 but rather temporarily used only when needed.
 
-### 2. annotation add index-alias?
+### 2. annotation add index-alias? (TODO)
 + [spring-data-elasticsearch, Define alias for document](https://jira.spring.io/browse/DATAES-192)
 - [How to interact with elastic search Alias using Spring data](https://stackoverflow.com/questions/32015592/how-to-interact-with-elastic-search-alias-using-spring-data)
 
@@ -80,6 +86,52 @@ but rather temporarily used only when needed.
 ### 3. dynamic index, ex "indexName-{yyyy-MM}"
 - [How to give Index Alias in Domain class instead of index name in Spring-dat-elasticsearch](https://stackoverflow.com/questions/51648942/how-to-give-index-alias-in-domain-class-instead-of-index-name-in-spring-dat-elas)
 
+结合SpEL实现。
+
 ### 4. spring-boot-2.x LocalDateTime
 - [springboot2 LocalDateTime类型未生效](https://blog.csdn.net/jieyanqulaopo123/article/details/105547050)
 - [如何使Spring Data Elasticsearch与java.time.LocalDat...](http://www.cocoachina.com/articles/40857)
+
+```java
+@Setting(settingPath = "spring-data-elasticsearch_settings.json")
+@Document(indexName = ArticleDocument.ES_INDEX)
+@Data
+public class ArticleDocument {
+
+    @Field(name = "publish_time", type = FieldType.Date,
+            format = DateFormat.custom, pattern = DATETIME_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATETIME_FORMAT)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime publishTime;
+}
+```
+
+### 5. `copy_to` or `field.keyword` (TODO)
+ex. `ArticleDocument.class`  
+```json
+{
+	"mapping": {
+		"title": {
+			"type": "text",
+			"analyzer": "ik_max_word",
+			"search_analyzer": "ik_smart_synonym",
+			"fields": {
+				"keyword": {
+					"type": "keyword"
+				}
+			}
+		},
+		"list_title": {
+			"type": "text",
+			"analyzer": "ik_max_word",
+			"search_analyzer": "ik_smart_synonym",
+			"fields": {
+				"keyword": {
+					"type": "keyword"
+				}
+			}
+		}
+	}
+}
+```

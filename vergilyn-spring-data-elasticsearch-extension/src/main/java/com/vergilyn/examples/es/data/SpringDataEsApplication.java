@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 /**
- * FIXME
  * @author vergilyn
  * @date 2020-04-30
  */
@@ -25,6 +24,6 @@ public class SpringDataEsApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        log.info("SpringDataEsApplication startup!");
+        log.info("{} >>>> startup...", this.getClass().getSimpleName());
     }
 }
