@@ -39,7 +39,7 @@ public class SearchTemplateTestng extends AbstractEsApiTestng {
      *   so in this example we use the low-level REST client.</strong>
      * </pre>
      *
-     * @see com.vergilyn.examples.es.cases.ArticleSearchTestng#registeredSearchTemplate()
+     * @see com.vergilyn.examples.es.usage.ArticleSearchTestng#registeredSearchTemplate()
      */
     @Test
     public void registeredTemplate() throws IOException {
@@ -63,7 +63,7 @@ public class SearchTemplateTestng extends AbstractEsApiTestng {
      *   curl -XGET "http://127.0.0.1:9200/_scripts/{search-template-name}"
      * </pre>
      *
-     * @see com.vergilyn.examples.es.cases.ArticleSearchTestng#getSearchTemplateScript()
+     * @see com.vergilyn.examples.es.usage.ArticleSearchTestng#getSearchTemplateScript()
      */
     @Test
     public void getSearchTemplateScript() throws IOException {

@@ -1,11 +1,17 @@
 package com.vergilyn.examples.es;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
@@ -27,6 +33,7 @@ public abstract class AbstractEsClientTestng {
     private final AtomicBoolean IS_INIT = new AtomicBoolean(false);
     protected RestClient restClient;
     protected RestHighLevelClient rhlClient;
+    protected ObjectMapper objectMapper;
 
     @BeforeTest
     public void beforeTest(){
@@ -52,6 +59,8 @@ public abstract class AbstractEsClientTestng {
 
         rhlClient = new RestHighLevelClient(builder);
         restClient = rhlClient.getLowLevelClient();
+
+        objectMapper = new ObjectMapper();
     }
 
     @AfterTest
@@ -62,6 +71,17 @@ public abstract class AbstractEsClientTestng {
         } catch (IOException e) {
             log.error("destroy elasticsearch client failure", e);
         }
+    }
+
+    protected String getResource(String resourcePath) throws IOException {
+        ClassLoader classLoader = AbstractEsClientTestng.class.getClassLoader();
+        URL input = classLoader.getResource(resourcePath);
+
+        if (input == null){
+            throw new FileNotFoundException();
+        }
+
+        return IOUtils.toString(input, StandardCharsets.UTF_8.name());
     }
 
     public void preventExit(){
