@@ -2,8 +2,6 @@ package com.vergilyn.examples.es.data;
 
 import java.util.List;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.vergilyn.examples.es.data.document.ArticleDocument;
 
 import lombok.extern.slf4j.Slf4j;
@@ -67,6 +65,7 @@ public class EsRestTemplateTest extends AbstractEsSpringBootTest {
 
         List<ArticleDocument> rs = restTemplate.queryForList(search, ArticleDocument.class);
 
-        System.out.printf("queryForList() >>>> %s \r\n", JSON.toJSONString(rs, SerializerFeature.PrettyFormat));
+        // System.out.printf("queryForList() >>>> %s \r\n", JSON.toJSONString(rs, SerializerFeature.PrettyFormat));
+        System.out.printf("queryForList() >>>> %s \r\n", rs);
     }
 }
