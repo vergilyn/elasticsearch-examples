@@ -33,7 +33,7 @@
         <apache-common-lang3.version>3.9</apache-common-lang3.version>
 
         <apache-common-text.version>1.8</apache-common-text.version>
-        <apache-common-io.version>2.6</apache-common-io.version>
+        <apache-common-io.version>2.7</apache-common-io.version>
         <apache-common-pool2.version>2.6.1</apache-common-pool2.version>
 
         <testng.version>7.1.0</testng.version>
