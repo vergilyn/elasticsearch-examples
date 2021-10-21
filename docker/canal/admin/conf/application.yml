@@ -1,0 +1,22 @@
+server:
+  port: 8089
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+spring.datasource:
+  address: ${SPRING_DATASOURCE_ADDRESS:127.0.0.1:3306}
+  database: ${SPRING_DATASOURCE_DATABASE:canal_manager}
+  username: ${SPRING_DATASOURCE_USERNAME:root}
+  password: ${SPRING_DATASOURCE_PASSWORD:123456}
+  driver-class-name: com.mysql.jdbc.Driver
+  url: jdbc:mysql://${spring.datasource.address}/${spring.datasource.database}?useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+  hikari:
+    maximum-pool-size: 30
+    minimum-idle: 1
+
+# canal-server需要凭此账号密码连接到admin上，不是登录密码，是服务间的连接校验
+canal:
+  adminUser: admin
+  adminPasswd: admin

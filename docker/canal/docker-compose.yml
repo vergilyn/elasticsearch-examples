@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  canal-admin:
+    image: canal/canal-admin:${CANAL_VERSION}
+    container_name: canal-admin-${CANAL_VERSION}
+    ports:
+      - "8089:8089"
+    volumes:
+      - "./admin/conf/application.yml:/home/admin/canal-admin/conf/application.yml"
+      - "./admin/conf/canal-template.properties:/home/admin/canal-admin/conf/canal-template.properties"
+      - "./admin/conf/instance-template.properties:/home/admin/canal-admin/conf/instance-template.properties"
+      - "./admin/conf/logback.xml:/home/admin/canal-admin/conf/logback.xml"
+      - "D:/docker-volumes/canal/admin/logs/:/home/admin/canal-admin/logs/"
+    environment:
+      # 需要手动初始化数据库 `canal_manager.sql`
+      SPRING_DATASOURCE_ADDRESS: "host.docker.internal:23306"
+
+  canal-server:
+    image: canal/canal-server:${CANAL_VERSION}
+    container_name: canal-server-${CANAL_VERSION}
+    ports:
+      # 2222 sys , 8000 debug , 11111 canal , 11112 metrics
+      - "2222:2222"
+      - "8000:8000"
+      - "11111:11111"
+      - "11112:11112"
+    volumes:
+      - "./server/conf/:/home/admin/canal-server/conf/"
+      # - "/home/admin/canal-server/conf/meta.dat"
+      - "D:/docker-volumes/canal/server/logs/:/home/admin/canal-server/logs/"
+    depends_on:
+      - canal-admin
