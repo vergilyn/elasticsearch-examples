@@ -20,6 +20,36 @@ see:
 - [Immediate bash segfault ExitCode 139 with centos:6.10 containers #7284](https://github.com/docker/for-win/issues/7284)
 - <https://forums.docker.com/t/docker-run-exits-immediately-despite-detach-interactive-tty-and-providing-a-command/99444/4>
 
+3. 依赖
+mysql: 
+  `127.0.0.1:3306/canal_manager`，canal-admin 启动依赖数据库
+  tsdb(H2/mysql，暂不清楚用途)，默认h2 不用关心 canal.properties `canal.instance.tsdb.spring.xml = classpath:spring/tsdb/h2-tsdb.xml`。
+
+  `instance.properties`被监听的数据库`canal.instance.master.address`
+
+MQ：rocketMQ
+**canal.properties | canal-template.properties**
+```
+# tcp, kafka, rocketMQ, rabbitMQ
+canal.serverMode = rocketMQ
+rocketmq.producer.group = canal_server_producer
+rocketmq.namesrv.addr = host.docker.internal:9876
+rocketmq.tag = canal_server_tag
+```
+
+**instance.properties**
+```properties
+# 固定向同一个topic写入 binlog-mq；也是 dynamicTopic 模式的默认topic
+canal.mq.topic=CANAL_BINLOG_default_topic
+
+## dynamic topic route by schema or table regex
+# 语法参考：https://github.com/alibaba/canal/wiki/Canal-Kafka-RocketMQ-QuickStart
+# vergilyn，2021-10-21：个人期望效果，生成不同的topic `CANAL_BINLOG_{database}_t_{table}`,但现在的语法貌似无法简单达到。
+#   可以通过`topicName:schema 或 topicName:schema.table`满足。但如果数量过多，这种方式显然不友好。
+#   特别：不满足dynamicTopic的表会发送到`canal.mq.topic`（例如`dev_vergilyn.user`）
+#canal.mq.dynamicTopic=mytest1.user,mytest2\\..*,.*\\..*
+```
+
 
 
 ## canal-osbase

@@ -6,7 +6,7 @@
     <groupId>com.vergilyn.examples</groupId>
     <artifactId>elasticsearch-examples</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>${revision}</version>
 
     <modules>
         <module>vergilyn-spring-data-elasticsearch-extension</module>
@@ -14,6 +14,7 @@
         <module>vergilyn-es-autoconfigure</module>
         <module>es-client-api-examples</module>
         <module>es-usage-examples</module>
+        <module>canal-examples</module>
     </modules>
 
     <properties>
@@ -21,7 +22,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
-        <spring-boot-dependencies.version>2.2.2.RELEASE</spring-boot-dependencies.version>
+        <revision>1.0.0-SNAPSHOT</revision>
+
+        <spring-boot-dependencies.version>2.2.11.RELEASE</spring-boot-dependencies.version>
         <elasticsearch.version>7.6.2</elasticsearch.version>
         <jcl-over-slf4j.version>1.7.30</jcl-over-slf4j.version>
 

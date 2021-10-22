@@ -22,7 +22,6 @@ springboot提供了starter来支持spring-data-elasticsearch。但是，springbo
 >   You can inject an auto-configured `ElasticsearchTemplate` or Elasticsearch `Client` instance as you would any other Spring Bean.
 >   By default the instance will embed a local in-memory server (a `Node` in Elasticsearch terms) and use the current working directory as the home directory for the server.
 
-
 ```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
