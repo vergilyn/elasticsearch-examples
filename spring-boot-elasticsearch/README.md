@@ -1,5 +1,10 @@
 # spring-boot-elastic-search
 
+### 2021-10-27
+`spring-boot-autoconfigure-2.2.11.RELEASE.jar` 已经可以支持 `RestHighLevelClient`的 auto-configure。
+- `org.springframework.boot.autoconfigure.elasticsearch.rest.RestClientAutoConfiguration`
+- `org.springframework.boot.autoconfigure.elasticsearch.rest.RestClientConfigurations`
+
 ### 2019-06-05
 spring-data-elasticsearch升级到`3.2.0.SNAPSHOT`，对应elasticsearch版本`6.5.0`。
 其中的`Function Score Query`查询API有重大变化，参考: [Elasticsearch 6.1 TransportClient实现多条件重排序搜索查询](https://blog.csdn.net/xiaoll880214/article/details/86716393)
