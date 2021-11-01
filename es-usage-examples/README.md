@@ -43,19 +43,18 @@ PUT test_analyzer
 
 
 ```
-# `must` 提升召回率的 DSL。
+# 提升召回率的boost 低于 提升精准率的boost。
 #   match, base-score
 #   prefix, boost < match,   
 #   fuzzy, boost < prefix
-#
-# `should` 提升精准率的 DSL。
-#    match_phrase_prefix 或 match_phrase，`slop`设置多少合适？
-#    wilcard，实现例如`content LIKT '%XX%'`。（示例  复制标题搜索，那么标题完全匹配的期望排在最前面）
+#   match_phrase_prefix 或 match_phrase，`slop`设置多少合适？
+#   wilcard，实现例如`content LIKT '%XX%'`。（示例  复制标题搜索，那么标题完全匹配的期望排在最前面）
 GET test_analyzer/_search
 {
   "query": {
     "bool": {
-      "must": [
+      "must": [],
+      "should": [
         {"multi_match": {
           "query": "重庆",
           "fields": ["content.hanlp_standard"],
@@ -66,9 +65,8 @@ GET test_analyzer/_search
         }},
         {"fuzzy": {
             "content.hanlp_standard": {"boost": 0.4, "prefix_length": 2, "value": "重庆"}
-        }}
-      ],
-      "should": [
+        }},
+        
         {"match_phrase_prefix": {
           "content.hanlp_standard": {"query": "重庆", "slop": 3,"boost": 3.0 }
         }},
